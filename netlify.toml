@@ -1,0 +1,23 @@
+# Netlify configuration for the FAU Owl Weather app.
+# Static site: no framework, no dependencies, no API keys (Open-Meteo is free and keyless).
+
+[build]
+  publish = "public"
+  # Pull the official FAU owl-head logo into the site at deploy time.
+  # If the download fails for any reason, the build still succeeds and the page
+  # falls back to the bundled FAU wordmark (public/assets/fau-wordmark.svg).
+  command = "curl -fsSL --retry 2 -o public/assets/fau-logo.png https://www.fau.edu/images/homepage/owlhead-logo.png || echo 'FAU logo download skipped; using bundled wordmark'"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.fau.edu; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com https://air-quality-api.open-meteo.com"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAU Owl Weather</title>
+  <meta name="description" content="Live weather for Boca Raton and anywhere else, in Florida Atlantic University colors. Powered by Open-Meteo.">
+  <meta name="theme-color" content="#003366">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="FAU Owl Weather home">
+        <img id="fau-logo" class="brand-logo" src="assets/fau-logo.png" alt="Florida Atlantic University logo" width="48" height="48">
+        <span class="brand-text">
+          <span class="brand-title">Owl Weather</span>
+          <span class="brand-sub">Florida Atlantic University</span>
+        </span>
+      </a>
+      <div class="unit-toggle" role="group" aria-label="Temperature units">
+        <button type="button" class="unit-btn" data-unit="fahrenheit" aria-pressed="true">°F</button>
+        <button type="button" class="unit-btn" data-unit="celsius" aria-pressed="false">°C</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-panel" aria-label="Find a location">
+      <form id="search-form" class="search-form" autocomplete="off">
+        <label for="search-input" class="visually-hidden">Search for a city</label>
+        <input id="search-input" type="search" placeholder="Search a city (e.g. Jupiter, FL)" aria-autocomplete="list" aria-controls="search-results">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="geo-btn" class="btn btn-ghost" title="Use my location">📍 My location</button>
+        <button type="button" id="home-btn" class="btn btn-ghost" title="Back to FAU Boca Raton">🦉 FAU Boca</button>
+        <ul id="search-results" class="search-results" role="listbox" hidden></ul>
+      </form>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite">Loading Boca Raton weather…</p>
+
+    <section id="current" class="card current" hidden>
+      <div class="current-head">
+        <div>
+          <h1 id="place-name" class="place-name">Boca Raton</h1>
+          <p id="place-meta" class="place-meta"></p>
+        </div>
+        <p id="updated" class="updated"></p>
+      </div>
+      <div class="current-body">
+        <div class="current-main">
+          <span id="current-icon" class="current-icon" aria-hidden="true"></span>
+          <div>
+            <p id="current-temp" class="current-temp">--</p>
+            <p id="current-desc" class="current-desc"></p>
+            <p id="current-hilo" class="current-hilo"></p>
+          </div>
+        </div>
+        <dl class="stats">
+          <div class="stat"><dt>Feels like</dt><dd id="stat-feels">--</dd></div>
+          <div class="stat"><dt>Humidity</dt><dd id="stat-humidity">--</dd></div>
+          <div class="stat"><dt>Wind</dt><dd id="stat-wind">--</dd></div>
+          <div class="stat"><dt>Gusts</dt><dd id="stat-gusts">--</dd></div>
+          <div class="stat"><dt>UV index</dt><dd id="stat-uv">--</dd></div>
+          <div class="stat"><dt>Air quality</dt><dd id="stat-aqi">--</dd></div>
+          <div class="stat"><dt>Pressure</dt><dd id="stat-pressure">--</dd></div>
+          <div class="stat"><dt>Sunrise / Sunset</dt><dd id="stat-sun">--</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="hourly-section" class="card" hidden>
+      <h2 class="section-title">Next 24 hours</h2>
+      <div id="hourly" class="hourly" tabindex="0" aria-label="Hourly forecast, scroll horizontally"></div>
+    </section>
+
+    <section id="daily-section" class="card" hidden>
+      <h2 class="section-title">7-day forecast</h2>
+      <ol id="daily" class="daily"></ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Go Owls! 🦉 Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (CC BY 4.0).</p>
+    <p class="footer-small">Student project, not an official Florida Atlantic University service.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
